@@ -5,7 +5,7 @@ import numpy as np
 import seaborn as sns
 
 # Load trajectory
-u = mda.Universe(r"C:\Users\Anthony\Downloads\collagen.gro")
+u = mda.Universe(r"../trajectories/collagen.tpr", r"../trajectories/collagen.trr")
 selection = u.select_atoms("all")
 rama = Ramachandran(selection).run()
 
@@ -19,13 +19,12 @@ plt.figure(figsize=(7, 7))
 sns.kdeplot(x=phi, y=psi, cmap="viridis", fill=True, thresh=0.01, levels=100)
 
 # Scatter overlay
-plt.plot(phi, psi, 'k.', markersize=1, alpha=0.5)
+plt.plot(phi, psi, 'k.', markersize=1, alpha=0.2)
 
 # Labels and formatting
 plt.xlim(-180, 180)
 plt.ylim(-180, 180)
 plt.xlabel("Φ (phi)")
 plt.ylabel("Ψ (psi)")
-plt.title("Ramachandran Plot with KDE Contour")
 plt.grid(True)
 plt.show()

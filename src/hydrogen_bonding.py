@@ -9,7 +9,7 @@ mda.analysis.base.AnalysisBase.parallelizable = False
 # if you're using a GRO trajectory you still need topology information. Make a subset of the original
 # tpr file to match the trajectory:
 # gmx convert-tpr -s topol.tpr -n index.ndx -o collagen.tpr
-u = mda.Universe(r"C:\Users\Anthony\Downloads\collagen.tpr", r"C:\Users\Anthony\Downloads\collagen.trr")
+u = mda.Universe(r"../trajectories/collagen.tpr", r"../trajectories/collagen.trr")
 
 hbonds = HBA(universe=u)
 hbonds.hydrogens_sel = hbonds.guess_hydrogens("protein")
@@ -33,7 +33,7 @@ plt.figure(figsize=(10, 6))
 plt.plot(frame_times, counts, marker='o', linestyle='-', color='darkblue')
 plt.xlabel("Time (ps)", fontsize=12)
 plt.ylabel("Number of Hydrogen Bonds", fontsize=12)
-plt.title("Hydrogen Bonds vs Time", fontsize=14)
+#plt.title("Hydrogen Bonds vs Time", fontsize=14)
 plt.grid(True)
 plt.tight_layout()
 plt.show()
