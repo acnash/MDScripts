@@ -16,6 +16,9 @@ result = freesasa.calc(structure)
 residue_areas = result.residueAreas()
 
 # Threshold for what we consider "surface"
+# < 5 Å²	Very buried (ignore)
+# 5–30 Å²	Partially exposed residues
+# >30–50+ Å²	Fully exposed residues
 surface_threshold = 30.0  # Å²
 
 # Collect surface residues
@@ -25,6 +28,14 @@ for chain in residue_areas:
         total_area = resinfo.total  # attribute
         if total_area > surface_threshold:
             surface_residues.append((chain, resinfo.residueType, resnum))
+
+selection = []
+for chain, restype, resnum in surface_residues:
+    selection.append(f"(segid {chain} and resid {resnum})")
+
+surface_sel = u.select_atoms(" or ".join(selection))
+
+surface_sel.write("surface_residues.pdb")
 
 # Print the surface residues
 for chain, resname, resnum in surface_residues:

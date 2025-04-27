@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 
-mda.analysis.base.AnalysisBase.parallelizable = False
+# mda.analysis.base.AnalysisBase.parallelizable = False
 
 # if you're using a GRO trajectory you still need topology information. Make a subset of the original
 # tpr file to match the trajectory:
