@@ -2,7 +2,7 @@ import MDAnalysis as mda
 import freesasa
 
 # Load the structure
-u = mda.Universe("../trajectories/4auo_single_no_collagen.pdb")
+u = mda.Universe("../trajectories/cluster_40360_free.pdbqt")
 
 # Select the protein atoms
 protein = u.select_atoms("protein")
@@ -31,12 +31,18 @@ for chain in residue_areas:
 
 selection = []
 for chain, restype, resnum in surface_residues:
-    selection.append(f"(segid {chain} and resid {resnum})")
+    if chain == "X":
+        selection.append(f"resid {resnum}")
+    else:
+        selection.append(f"segid {chain} and resid {resnum}")
 
 surface_sel = u.select_atoms(" or ".join(selection))
 
 surface_sel.write("surface_residues.pdb")
 
 # Print the surface residues
-for chain, resname, resnum in surface_residues:
-    print(f"{resname} {resnum} {chain}")
+with open("MMP1_free_residues.txt", "w") as file:
+    for chain, resname, resnum in surface_residues:
+        ca_atom = u.select_atoms(f"resid {resnum} and name CA")
+        ca_pos = ca_atom.positions[0]
+        file.write(f"{resname} {resnum} {chain} {ca_pos[0]:.3f} {ca_pos[1]:.3f} {ca_pos[2]:.3f}\n")
