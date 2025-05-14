@@ -36,4 +36,7 @@ plt.ylabel("Number of Hydrogen Bonds", fontsize=12)
 #plt.title("Hydrogen Bonds vs Time", fontsize=14)
 plt.grid(True)
 plt.tight_layout()
+
+plt.savefig("hbond_highres.jpg", dpi=600, format='jpg')
+
 plt.show()

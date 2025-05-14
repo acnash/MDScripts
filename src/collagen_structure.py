@@ -27,4 +27,8 @@ plt.ylim(-180, 180)
 plt.xlabel("Φ (phi)")
 plt.ylabel("Ψ (psi)")
 plt.grid(True)
+
+plt.savefig("ramachandran_highres.jpg", dpi=600, format='jpg')
+
 plt.show()
+
