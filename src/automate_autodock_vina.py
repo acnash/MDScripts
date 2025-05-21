@@ -4,11 +4,11 @@ import os
 # Path to the executable (adjust the path as needed)
 vina_exe = "../external/vina_1.2.5_win.exe"
 
-receptor_file = "../trajectories/MMP1.pdbqt"
+receptor_file = "../trajectories/cluster_40360_free.pdbqt" #MMP1.pdbqt"
 #ligand_file = "../trajectories/ZINC000001149132.pdbqt"
 ligand_directory = "../trajectories/top_50_ARG405_collagen/"
-output_directory = "../temp/with_collagen/"
-data_file = "../temp/MMP1_collagen_residues.txt"
+output_directory = "../temp/without_collagen/"
+data_file = "../temp/MMP1_free_residues.txt"
 
 # go through each file in the ligand_directory
 # create a directory in temp/with_collagen
