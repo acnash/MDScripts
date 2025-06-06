@@ -23,10 +23,10 @@ def main():
 
     # Select the protein atoms
     protein = u.select_atoms("protein")
-    protein.write("temp_protein.pdb")
+    protein.write("../temp/temp_protein.pdb")
 
     # Use freesasa to load and calculate SASA
-    structure = freesasa.Structure("temp_protein.pdb")
+    structure = freesasa.Structure("../temp/temp_protein.pdb")
     result = freesasa.calc(structure)
 
     # Get per-residue SASA
@@ -53,7 +53,10 @@ def main():
         else:
             selection.append(f"segid {chain} and resid {resnum}")
 
-    surface_sel = u.select_atoms(" or ".join(selection))
+    #surface_sel = u.select_atoms(" or ".join(selection))
+    surface_sel = u.atoms[[]]
+    for sel in selection:
+        surface_sel += u.select_atoms(sel)
 
     surface_sel.write(output_file)
 
@@ -61,8 +64,9 @@ def main():
     with open(residue_file, "w") as file:
         for chain, resname, resnum in surface_residues:
             ca_atom = u.select_atoms(f"resid {resnum} and name CA")
-            ca_pos = ca_atom.positions[0]
-            file.write(f"{resname} {resnum} {chain} {ca_pos[0]:.3f} {ca_pos[1]:.3f} {ca_pos[2]:.3f}\n")
+            if ca_atom:
+                ca_pos = ca_atom.positions[0]
+                file.write(f"{resname} {resnum} {chain} {ca_pos[0]:.3f} {ca_pos[1]:.3f} {ca_pos[2]:.3f}\n")
 
 if __name__ == "__main__":
     main()
